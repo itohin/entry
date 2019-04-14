@@ -11,7 +11,12 @@ class ActivationController extends Controller
 {
     public function activate(Request $request)
     {
-        $user = User::byActivationColumns($request->email, $request->token)->firstOrFail();
+        try {
+            $user = User::byActivationColumns($request->email, $request->token)->firstOrFail();
+        } catch (\Exception $e) {
+            return redirect()->route('login')
+                ->withError('Sorry, link is broken');
+        }
 
         $user->update([
             'active' => true,
