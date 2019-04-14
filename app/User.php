@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Query\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -37,4 +38,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeByActivationColumns($builder, $email, $token)
+    {
+        return $builder->where('email', $email)->where('activation_token', $token);
+    }
+
+    public function scopeByEmail($builder, $email)
+    {
+        return $builder->where('email', $email);
+    }
 }

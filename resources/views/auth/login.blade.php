@@ -62,6 +62,10 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+
+                                <a class="btn btn-link" href="{{ route('auth.activate.resend') }}">
+                                    {{ __('Resend Activation Email') }}
+                                </a>
                             </div>
                         </div>
                     </form>
